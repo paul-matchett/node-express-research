@@ -17,7 +17,13 @@
 
 node app.js add (third argument)
 
-Testing
+MongoDB
+
+- Nosql database used to persist information
+- c:\Program Files\MongoDB\Server\3.6\
+    - mongod.exe --dbpath /Users/Paul/mongo-data
+    - mongo.exe (bash) 
+- install robomongo
 
 
 
@@ -42,5 +48,6 @@ building a weather app - working with advanced promises 2
 building a weather app - express intro, creating a server, templates and middleware 4
 
 
+organising testing code with describe and using spies with rewire npm package
 
 
