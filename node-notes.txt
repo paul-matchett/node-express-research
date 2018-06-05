@@ -33,6 +33,9 @@ MongoDB
     - $inc - increaments a fields value
     - $set - set value
 
+
+Mongoose ORM
+- 
 ------------------------------------------------
 
 
@@ -63,5 +66,7 @@ organising testing code with describe and using spies with rewire npm package
 Tuesday 
 
 connecting, inserting, deleting and updating documents collections in mongodb - 3
+building a notes api - installed mongoose for validators, types and default object modeling. Added bodyParser for middleware to pass jSON in express routes - 2
+
 
 
