@@ -24,7 +24,16 @@ MongoDB
     - mongod.exe --dbpath /Users/Paul/mongo-data
     - mongo.exe (bash) 
 - install robomongo
+- Nosql Vocab
+    - uses collections instead of table
+    - uses field instead of column
+    - uses document instaed of row/record
 
+- update operators
+    - $inc - increaments a fields value
+    - $set - set value
+
+------------------------------------------------
 
 
 Reasearching blocking vs non-blocking i/o model, creating node server 1
@@ -49,5 +58,10 @@ building a weather app - express intro, creating a server, templates and middlew
 
 
 organising testing code with describe and using spies with rewire npm package
+
+
+Tuesday 
+
+connecting, inserting, deleting and updating documents collections in mongodb - 3
 
 
