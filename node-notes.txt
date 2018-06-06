@@ -49,6 +49,15 @@ Environemnst
 
 'test' | 'developement' | 'production'
 
+Hashing and Authenticating
+
+SHA256 
+- one way algorithm 
+- always gets the same result. 
+- used to Obfuscation a users password
+
+jwt.io - for encoding json web tokens
+
 
 Tuesday 
 
@@ -60,3 +69,4 @@ Wednesday
 
 building a notes api - added DELETE, PATCH methods to delete/update todos using expressjs and mongoose, and integrated unit tests for each - 3
 building a notes api - creating a test database using node environment variables - 2
+building a notes api - adding users and authentication. looking at crypto-js and json web tokens packages  - 3
