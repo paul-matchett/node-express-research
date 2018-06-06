@@ -38,35 +38,18 @@ Mongoose ORM
 - 
 ------------------------------------------------
 
+Postman Environments
 
-Reasearching blocking vs non-blocking i/o model, creating node server 1
-Working with node modules and 3rd party modules like nodemon and lodash using require 3
-looking at the command line tool yargs for parsing and looking at file system module 3
-starting to build a todo console application using fs module and yargs 1
-
-continuing to build a todo console application using fs module, yargs and lodash 4
-debugging with command line and chrome dev tools
-
-thursday
-
-building a weather app - looking at advanced promises and axios package 3
-building a weather app - abstracting callbacks and chaining callbacks 2
-building a weather app - response errors, encoding user inputs 3
-
-Friday
-
-building a weather app - abstracting and chaining callbacks 2
-building a weather app - working with advanced promises 2
-building a weather app - express intro, creating a server, templates and middleware 4
-
-
-organising testing code with describe and using spies with rewire npm package
+name - Todo Local
+key - url 
+value - localhost:3000
+{{url}}/todos
 
 
 Tuesday 
 
 connecting, inserting, deleting and updating documents collections in mongodb - 3
 building a notes api - installed mongoose for validators, types and default object modeling. Added bodyParser for middleware to pass jSON in express routes - 2
+building a notes api - added GET, POST methods to added/retrieve todos using expressjs and mongoose, and integrated unit tests for each. - 3
 
-
-
+Wednesday
