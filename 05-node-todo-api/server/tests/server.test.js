@@ -12,7 +12,9 @@ const todos = [
     },
     {
         _id: new ObjectID(),
-        text: 'second test todo'
+        text: 'second test todo',
+        completed: true,
+        completedAt: 333
     }
 ]
 
@@ -157,5 +159,71 @@ describe('DELETE / todos:id', () => {
             .expect(404)
             .end(done);
     }); 
+
+});
+
+describe('PATCH / todos:id', () => {
+
+    it('should update one todo', (done) => {
+
+        var hexId = todos[0]._id.toHexString();
+        var text = 'updated text';
+        request(app)
+            .patch(`/todos/${hexId}`)
+            .send({
+                text,
+                completed: true
+            })
+            .expect(200)
+            .expect((res) => {
+                expect(res.body.todo.text).toBe(text);
+                expect(res.body.todo.completed).toBeTruthy();
+                expect(res.body.todo.completedAt).toBeA('number');
+            })
+            .end((error, res) => {
+                if(error) {
+                    return done(error);
+                }
+                Todo
+                    .find({text})
+                    .then((todos) => {
+                        expect(todos.length).toBe(1);
+                        expect(todos[0].text).toBe(text);
+                        done();
+                    })
+                    .catch((error) => done(error))
+            });
+    });
+
+    it('should clear completedAt when todo is not completed', (done) => {
+
+        var hexId = todos[1]._id.toHexString();
+        var text = 'updated text';
+        request(app)
+            .patch(`/todos/${hexId}`)
+            .send({
+                text,
+                completed: false
+            })
+            .expect(200)
+            .expect((res) => {
+                expect(res.body.todo.text).toBe(text);
+                expect(res.body.todo.completed).toBeFalsy();
+                expect(res.body.todo.completedAt).toNotExist();
+            })
+            .end((error, res) => {
+                if(error) {
+                    return done(error);
+                }
+                Todo
+                    .find({text})
+                    .then((todos) => {
+                        expect(todos.length).toBe(1);
+                        expect(todos[0].text).toBe(text);
+                        done();
+                    })
+                    .catch((error) => done(error))
+            });
+    });
 
 });

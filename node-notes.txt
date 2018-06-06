@@ -45,6 +45,10 @@ key - url
 value - localhost:3000
 {{url}}/todos
 
+Environemnst
+
+'test' | 'developement' | 'production'
+
 
 Tuesday 
 
@@ -53,3 +57,6 @@ building a notes api - installed mongoose for validators, types and default obje
 building a notes api - added GET, POST methods to added/retrieve todos using expressjs and mongoose, and integrated unit tests for each. - 3
 
 Wednesday
+
+building a notes api - added DELETE, PATCH methods to delete/update todos using expressjs and mongoose, and integrated unit tests for each - 3
+building a notes api - creating a test database using node environment variables - 2
