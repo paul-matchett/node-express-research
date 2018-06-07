@@ -9,6 +9,8 @@ var { mongoose } = require('./db/mongoose');
 var { User } = require('./models/user');
 var { Todo } = require('./models/todo');
 
+var { authenticate } = require('./middleware/authenticate');
+
 var app = express();
 const port = process.env.PORT;
 
@@ -105,13 +107,30 @@ app.post('/users', (req, res) => {
     var user = new User(body);
 
     user.save().then(() => {
-        return user.generateAuthToken();
+        var generatedToken = user.generateAuthToken();
+        return generatedToken;
     }).then((token) => {
         res.header('x-auth', token).send(user);
     }).catch((e) => {
         res.status(400).send(e);
     });
 
+});
+
+app.get('/users', (req, res) => {
+    
+    User.find()
+        .then((users) => {
+            res.send({ users });
+        }, (e) => {
+            res.status(400).send(e);
+        });
+});
+
+
+// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YjE4ZWZhYmEzMzkyYjgwMTBlZGI1MTMiLCJhY2Nlc3MiOiJhdXRoIiwiaWF0IjoxNTI4MzYwODc1fQ.stKSKiAyCz4SD4gnAfiN-7lbcw82x8csp4Nk4jHiz0c
+app.get('/users/me', authenticate, (req, res) => {
+    res.send(req.user);
 });
 
 app.listen(port, () => {
