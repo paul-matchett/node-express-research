@@ -73,5 +73,6 @@ building a notes api - adding users and authentication. looking at crypto-js and
 
 Thursday
 
-building a notes api - generating Auth Tokens and setting Headers - 1
-building a notes api - private routes and middleware - 1
+building a notes api - generating Auth Tokens and setting Headers and creating private routes and middleware - 3
+building a notes api - seeding users, post user and testing authentication middleware - 3
+
