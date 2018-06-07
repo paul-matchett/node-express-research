@@ -128,7 +128,6 @@ app.get('/users', (req, res) => {
 });
 
 
-// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1YjE4ZWZhYmEzMzkyYjgwMTBlZGI1MTMiLCJhY2Nlc3MiOiJhdXRoIiwiaWF0IjoxNTI4MzYwODc1fQ.stKSKiAyCz4SD4gnAfiN-7lbcw82x8csp4Nk4jHiz0c
 app.get('/users/me', authenticate, (req, res) => {
     res.send(req.user);
 });
