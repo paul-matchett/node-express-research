@@ -45,6 +45,16 @@ key - url
 value - localhost:3000
 {{url}}/todos
 
+testing tab to store token
+var token = postman.getResponseHeader('x-auth');
+postman.setEnvironmentVariable('x-auth', token);
+{{x-auth}}
+
+param variables
+var body = JSON.parse(responseBody);
+postman.setEnvironmentVariable('todoId', body._id);
+{{todoId}}
+
 Environemnst
 
 'test' | 'developement' | 'production'
@@ -81,5 +91,5 @@ Friday
 
 building a notes api - added log out route and removeToken method to users schema model and added delete token unit test  - 2
 building a notes api - added ESLint to project - 1
-building a notes api - making todo routes private - 3
-building a notes api - updating local env variables - 1
+building a notes api - making todo routes private by adding static findByToken method to users schema and updating tests - 4
+building a notes api - abstracting local env variables and JWT secrets - 1

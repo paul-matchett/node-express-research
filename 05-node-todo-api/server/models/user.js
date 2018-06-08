@@ -44,7 +44,7 @@ UserSchema.methods.generateAuthToken = function () {
   var user = this;
   var access = 'auth';
 
-  var secret = 'abc123';
+  var secret = process.env.JWT_SECRET;
   var token = jwt.sign({_id: user._id.toHexString(), access}, secret).toString();
 
   user.tokens = user.tokens.concat([{access, token}]);
@@ -68,7 +68,7 @@ UserSchema.methods.removeToken = function (token) {
 
 UserSchema.statics.findByToken = function (token) {
     var User = this;
-    var secret = 'abc123';
+    var secret = process.env.JWT_SECRET;
     var decoded;
 
     try{

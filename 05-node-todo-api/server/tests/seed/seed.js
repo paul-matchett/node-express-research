@@ -7,7 +7,7 @@ const { User } = require('./../../models/user');
 
 const userOneId = new ObjectID();
 const userTwoId = new ObjectID();
-var secret = 'abc123';
+var secret = process.env.JWT_SECRET;
 const users = [
     {
         _id: userOneId,
