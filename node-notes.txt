@@ -82,3 +82,4 @@ Friday
 building a notes api - added log out route and removeToken method to users schema model and added delete token unit test  - 2
 building a notes api - added ESLint to project - 1
 building a notes api - making todo routes private - 3
+building a notes api - updating local env variables - 1
