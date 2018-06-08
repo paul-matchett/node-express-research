@@ -47,7 +47,7 @@ const poulateTodos = (done) => {
     }).then(() => done());
 }
 
-const poulateUsers = (done) => {
+const populateUsers = (done) => {
     User.remove({}).then(() => {
         var userOne = new User(users[0]).save();
         var userTwo = new User(users[1]).save();
@@ -57,4 +57,4 @@ const poulateUsers = (done) => {
     }).then(() => done());
 }
 
-module.exports = { todos, poulateTodos, users, poulateUsers };
+module.exports = { todos, poulateTodos, users, populateUsers };

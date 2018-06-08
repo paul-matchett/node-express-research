@@ -5,9 +5,9 @@ const {ObjectID} = require('mongodb');
 const { app } = require('./../server');
 const { Todo } = require('./../models/todo');
 const { User } = require('./../models/user');
-const { todos, poulateTodos, users, poulateUsers } = require('./seed/seed');
+const { todos, poulateTodos, users, populateUsers } = require('./seed/seed');
 
-beforeEach(poulateUsers);
+beforeEach(populateUsers);
 beforeEach(poulateTodos);
 
 describe('POST / todos', () => {
@@ -343,5 +343,27 @@ describe('POST /users/login', () => {
         });
 
     });
+
+});
+
+describe('DELETE /users/me/token', () => {
+
+  it('should auth token on log out', (done)=> {
+
+    request(app)
+      .delete('/users/me/token')
+      .set('x-auth', users[0].tokens[0].token)
+      .expect(200)
+      .end((error) => {
+        if(error) {
+            return done(error);
+        }
+        User.findOne({email: users[0].email}).then((user) => {
+            expect(user.tokens.length).toBe(0);
+            done();
+        }).catch((e) => done(e));
+    });
+
+  });
 
 });
