@@ -4,7 +4,6 @@ const jwt = require('jsonwebtoken');
 const { Todo } = require('./../../models/todo');
 const { User } = require('./../../models/user');
 
-
 const userOneId = new ObjectID();
 const userTwoId = new ObjectID();
 var secret = process.env.JWT_SECRET;
@@ -29,8 +28,8 @@ const users = [
         access: 'auth',
         token: jwt.sign({ _id: userTwoId.toHexString(), access: 'auth' }, secret).toString()
       },
-    ]
-  }
+    ],
+  },
 ];
 
 
@@ -46,14 +45,14 @@ const todos = [
     completed: true,
     completedAt: 333,
     _userId: userTwoId,
-  }
-]
+  },
+];
 
 const poulateTodos = (done) => {
   Todo.remove({}).then(() => {
-    return Todo.insertMany(todos)
+    return Todo.insertMany(todos);
   }).then(() => done());
-}
+};
 
 const populateUsers = (done) => {
   User.remove({}).then(() => {
@@ -63,6 +62,6 @@ const populateUsers = (done) => {
     return Promise.all([userOne, userTwo]);
 
   }).then(() => done());
-}
+};
 
 module.exports = { todos, poulateTodos, users, populateUsers };
