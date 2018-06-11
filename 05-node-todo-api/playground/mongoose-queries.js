@@ -1,13 +1,13 @@
-const {ObjectID} = require('mongodb');
+const { ObjectID } = require('mongodb');
 
-const {mongoose} = require('./../server/db/mongoose');
-const {Todo} = require('./../server/models/todo');
+const { mongoose } = require('./../server/db/mongoose');
+const { Todo } = require('./../server/models/todo');
 
 
 var id = '5b169e222aa6357c07d32851';
 
-if(!ObjectID.isValid(id)){
-    console.log('id not valid');
+if (!ObjectID.isValid(id)) {
+  console.log('id not valid');
 }
 
 // array containing a todo
@@ -28,10 +28,10 @@ if(!ObjectID.isValid(id)){
 
 // todo object by id
 Todo.findById(id).then((todo) => {
-    if(!todo) {
-        return console.log('Id not found');
-    }
-    console.log('todo by id :', todo);
+  if (!todo) {
+    return console.log('Id not found');
+  }
+  console.log('todo by id :', todo);
 }).catch((error) => console.log(error));
 
 

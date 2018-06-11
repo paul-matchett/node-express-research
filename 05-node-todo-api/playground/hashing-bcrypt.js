@@ -10,7 +10,9 @@ var password = '123abc';
 
 var hashedPassword = '$2a$10$CGSSxOgArV.LE9T58qtnTeNU.ij28vQQC/1piQDQEHWn0LUYX7gAW';
 
+let resToLog;
 bcrypt.compare(password, hashedPassword, (err, res) => {
-    // res === true
-    console.log('res :', res);
+  // res === true
+  resToLog = res;
+  //console.log('res :', res);
 });
