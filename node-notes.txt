@@ -55,7 +55,7 @@ var body = JSON.parse(responseBody);
 postman.setEnvironmentVariable('todoId', body._id);
 {{todoId}}
 
-Environemnst
+Environment
 
 'test' | 'developement' | 'production'
 
@@ -93,3 +93,10 @@ building a notes api - added log out route and removeToken method to users schem
 building a notes api - added ESLint to project - 1
 building a notes api - making todo routes private by adding static findByToken method to users schema and updating tests - 4
 building a notes api - abstracting local env variables and JWT secrets - 1
+
+Monday
+
+Looking at using async await  - 1
+Creating a currency converter using axios and async await pulling data from http://data.fixer.io and https://restcountries.eu - 4
+
+
