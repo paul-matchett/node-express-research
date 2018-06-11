@@ -33,7 +33,7 @@ describe('POST / todos', () => {
             expect(todos[0].text).toBe(text);
             done();
           })
-          .catch((error) => done(error))
+          .catch((error) => done(error));
       });
   });
 
@@ -121,7 +121,7 @@ describe('DELETE / todos:id', () => {
 
   it('should delete one todo doc', (done) => {
 
-    var hexId = todos[1]._id.toHexString()
+    var hexId = todos[1]._id.toHexString();
     request(app)
       .delete(`/todos/${hexId}`)
       .set('x-auth', users[1].tokens[0].token)
@@ -144,7 +144,7 @@ describe('DELETE / todos:id', () => {
 
   it('should not delete one todo doc if user', (done) => {
 
-    var hexId = todos[1]._id.toHexString()
+    var hexId = todos[1]._id.toHexString();
     request(app)
       .delete(`/todos/${hexId}`)
       .set('x-auth', users[0].tokens[0].token)
@@ -158,7 +158,7 @@ describe('DELETE / todos:id', () => {
             expect(todo).toExist();
             done();
           })
-          .catch((e) => done(e))
+          .catch((e) => done(e));
       });
   });
 
@@ -313,7 +313,7 @@ describe('POST /users', () => {
       .post('/users')
       .send({
         email: '123',
-        password: '456'
+        password: '456',
       })
       .expect(400)
       .end(done);
@@ -340,7 +340,7 @@ describe('POST /users/login', () => {
       .post('/users/login')
       .send({
         email: users[1].email,
-        password: users[1].password
+        password: users[1].password,
       })
       .expect(200)
       .expect((res) => {
@@ -367,13 +367,13 @@ describe('POST /users/login', () => {
       .post('/users/login')
       .send({
         email: users[1].email,
-        password: 'abc'
+        password: 'abc',
       })
       .expect(400)
       .expect((res) => {
         expect(res.headers['x-auth']).toNotExist();
       })
-      .end((error, res) => {
+      .end((error) => {
         if (error) {
           return done(error);
         }

@@ -98,5 +98,7 @@ Monday
 
 Looking at using async await  - 1
 Creating a currency converter using axios and async await pulling data from http://data.fixer.io and https://restcountries.eu - 4
+axios and async await - handling errors and awaiting async function - 1
+building a notes api - updating the rest api to use async await - 2
 
 
