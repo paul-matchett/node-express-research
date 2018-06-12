@@ -4,6 +4,7 @@ const _ = require('lodash');
 const express = require('express');
 const bodyParser = require('body-parser');
 const { ObjectID } = require('mongodb');
+const cors = require('cors');
 
 const { User } = require('./models/user');
 const { Todo } = require('./models/todo');
@@ -16,6 +17,24 @@ const port = process.env.PORT;
 // MIDDLEWWARE
 
 app.use(bodyParser.json());
+
+app.use(cors());
+
+// app.all("/*", function(req, res, next) {
+//   // CORS headers
+//   res.header("Access-Control-Allow-Origin", "*"); // restrict it to the required domain
+//   res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE,OPTIONS");
+//   // Set custom headers for CORS
+//   res.header(
+//     "Access-Control-Allow-Headers",
+//     "Content-type,Accept,X-Access-Token,x-auth"
+//   );
+//   if (req.method == "OPTIONS") {
+//     res.status(200).end();
+//   } else {
+//     next();
+//   }
+// });
 
 // TODOS
 
@@ -94,11 +113,11 @@ app.delete('/todos/:id', authenticate, async (req, res) => {
   }
 
   try{
-    const todo = await Todo.findOneAndRemove({ _id: id, _userId: req.user._id,});
-    if (!todo) {
+    const todos = await Todo.findOneAndRemove({ _id: id, _userId: req.user._id,});
+    if (!todos) {
       return res.status(404).send();
     }
-    res.send({ todo });
+    res.send({ todos });
   } catch (e) {
     res.status(400).send(e);
   }
@@ -134,15 +153,15 @@ app.patch('/todos/:id', authenticate, async (req, res) => {
   }
 
   try{
-    const todo = await Todo.findOneAndUpdate(
+    const todos = await Todo.findOneAndUpdate(
       {_id: id,_userId: req.user._id,},
       { $set: body, },
       { new: true, }
     );
-    if (!todo) {
+    if (!todos) {
       return res.status(404).send();
     }
-    res.send({ todo });
+    res.send({ todos });
   } catch (e) {
     res.status(400).send(e);
   }
@@ -171,7 +190,11 @@ app.post('/users', async (req, res) => {
     const user = new User(body);
     await user.save();
     const token = await user.generateAuthToken();
-    res.header('x-auth', token).send(user);
+    const data = {
+      user,
+      token
+    }
+    res.header('x-auth', token).send(data);
   } catch (e) {
     res.status(400).send(e);
   }
@@ -198,7 +221,11 @@ app.post('/users/login', async (req, res) => {
     var userObj = new User(body);
     const user = await User.findByCredentials(body.email, body.password);
     const token = await user.generateAuthToken();
-    res.header('x-auth', token).send(userObj);
+    const data = {
+      user,
+      token
+    }
+    res.header('x-auth', token).send(data);
   } catch (e) {
     res.status(400).send();
   }
