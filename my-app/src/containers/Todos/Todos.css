@@ -1,0 +1,44 @@
+.Todos{
+  padding: 20px;
+}
+
+.Todos ul {
+  list-style-type: none;
+  padding-left: 0px;
+}
+
+.Todos ul li {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 320px 10px 10px;
+  position: relative;
+  margin-bottom: 10px;
+  background-color: #703B09;
+  color: #ffffff;
+  overflow: hidden;
+  min-height: 57px;
+}
+
+.Todos ul li button {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  border: none;
+  outline: none;
+  width: 100px;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.Todos ul li button:nth-child(1){ 
+  right: 200px; 
+  background-color: #40A4C8; 
+}
+.Todos ul li button:nth-child(2){ 
+  right: 100px; 
+  background-color: green; 
+}
+.Todos ul li button:nth-child(3){ 
+  right: 0; 
+  background-color: red; 
+}
