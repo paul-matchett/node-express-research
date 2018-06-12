@@ -7,7 +7,7 @@ const { ObjectID } = require('mongodb');
 
 const { User } = require('./models/user');
 const { Todo } = require('./models/todo');
-
+var { mongoose } = require('./db/mongoose');
 const { authenticate } = require('./middleware/authenticate');
 
 const app = express();
@@ -37,7 +37,7 @@ app.get('/todos', authenticate, async (req, res) => {
 
   try {
     const todos = await Todo.find({_userId: req.user._id,});
-    if (!todo) {
+    if (!todos) {
       return res.status(404).send();
     }
     res.send({ todos });
@@ -197,11 +197,14 @@ app.post('/users/login', async (req, res) => {
     var body = _.pick(req.body, ['email', 'password']);
     var userObj = new User(body);
     const user = await User.findByCredentials(body.email, body.password);
-    const token = user.generateAuthToken();
+    const token = await user.generateAuthToken();
     res.header('x-auth', token).send(userObj);
   } catch (e) {
     res.status(400).send();
   }
+
+  // var body = _.pick(req.body, ['email', 'password']);
+  // var userObj = new User(body);
 
   // User.findByCredentials(body.email, body.password).then((user) => {
   //   return user.generateAuthToken().then((token) => {

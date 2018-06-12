@@ -48,29 +48,20 @@ const todos = [
   },
 ];
 
-const poulateTodos = async (done) => {
-  await Todo.remove({});
-  const todos = await Todo.insertMany(todos);
-  Todo.insertMany(todos);
-  done();
-  // Todo.remove({}).then(() => {
-  //   return Todo.insertMany(todos);
-  // }).then(() => done());
+const poulateTodos = (done) => {
+  Todo.remove({}).then(() => {
+    return Todo.insertMany(todos);
+  }).then(() => done());
 };
 
-const populateUsers = async (done) => {
-  await User.remove({});
-  var userOne = new User(users[0]).save();
-  var userTwo = new User(users[1]).save();
-  done();
+const populateUsers = (done) => {
+  User.remove({}).then(() => {
+    var userOne = new User(users[0]).save();
+    var userTwo = new User(users[1]).save();
 
-  // User.remove({}).then(() => {
-  //   var userOne = new User(users[0]).save();
-  //   var userTwo = new User(users[1]).save();
+    return Promise.all([userOne, userTwo]);
 
-  //   return Promise.all([userOne, userTwo]);
-
-  // }).then(() => done());
+  }).then(() => done());
 };
 
 module.exports = { todos, poulateTodos, users, populateUsers };
