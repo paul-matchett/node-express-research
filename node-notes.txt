@@ -101,4 +101,11 @@ Creating a currency converter using axios and async await pulling data from http
 axios and async await - handling errors and awaiting async function - 1
 building a notes api - updating the rest api to use async await - 2
 
+Tuesday
 
+building notes react app - setting up a react app to visualise and communicate with a notes rest api - 2
+building notes react app - adding cors to nost rest api - 1
+building notes react app - creating hoc and UI components to hold side drawer, menu, header. - 3
+building notes react app - creating routes for notes, add note and auth and logout - 2
+
+building notes react app - setting up authorization calls to set up and store tokens 4
