@@ -108,4 +108,13 @@ building notes react app - adding cors to nost rest api - 1
 building notes react app - creating hoc and UI components to hold side drawer, menu, header. - 3
 building notes react app - creating routes for notes, add note and auth and logout - 2
 
+Wednesday
+
 building notes react app - setting up authorization calls to set up and store tokens 4
+building notes react app - create todos component with dummy state 2
+building notes react app - creating todos crud calls with rest api using axios 2
+
+Thursday
+
+building notes react app - adding redux store, actions and reducers to manage auth state
+building notes react app - adding redux store, actions and reducers to manage todos state

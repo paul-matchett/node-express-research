@@ -1,89 +1,134 @@
-import React, { Component } from 'react'; 
-import classes from './Todos.css';
-import axios from '../../shared/axiosInstance';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import axios from "../../shared/axiosInstance";
+import withErrorHandler from "../../hoc/withErrorHandler/withErrorHandler";
+import * as actions from "../../store/actions/index";
+import Spinner from "../../components/UI/Spinner/Spinner";
+import classes from "./Todos.css";
 
 class Todos extends Component {
-
   state = {
-    todos: []
+    userId: localStorage.getItem("userId")
   };
 
-  async componentDidMount() {
-
-    const userId = localStorage.getItem('userId');
-    try {
-      const response = await axios.get('/todos', userId);
-      console.log('response :', response);
-      this.setState({todos: response.data.todos});
-    } catch (e) {
-      console.log('err :', e);
-    }
+  componentDidMount() {
+    console.log("this.props :", this.props);
+    this.props.onFetchTodos();
   }
 
   addMessage = async () => {
+    //this.props.onAddTodo();
 
-    const userId = localStorage.getItem('userId');
-    let rn = Math.floor(Math.random() * 6000) + 1; 
-    const todo = {   
-      "text": `this is a second dummy message from react app. rn: ${rn}`,
-      "_userId": userId
-    }
+    let rn = Math.floor(Math.random() * 6000) + 1;
+    const todo = {
+      text: `this is a dummy message from react app. rn: ${rn}`,
+      _userId: this.state.userId
+    };
     try {
       const response = await axios.post(`/todos/`, todo);
-      console.log('response :', response);
-      const todos = this.state.todos;
-      todos.push(todo);
-      this.setState({todos: todos});
+      if (!response.data) {
+        throw new Error("No todo returned");
+      }
+      const updatesTodos = this.state.todos.slice();
+      updatesTodos.push(response.data);
+      this.setState({ todos: updatesTodos });
     } catch (e) {
-      console.log('err :', e);
+      console.log("err :", e);
     }
-  }
+  };
 
-  deleteMessage = async (id) => {
-    const todo = this.state.todos.filter(todo => todo._id === id)[0];
-    console.log('DELETE id :', id);
-    try {
-      const response = await axios.delete(`/todos/${id}`, todo);
-      console.log('response :', response);
-      this.setState({todos: [ response.data.todos ]});
-    } catch (e) {
-      console.log('err :', e);
-    }
-  }
+  deleteMessage = id => {
+    this.props.onDeleteTodo(id);
+  };
 
-  updateMessage = async (id) => {
-    const todo = this.state.todos.filter(todo => todo._id === id)[0];
+  toggleTodoComplete = id => {
+    const todo = this.props.todos.filter(todo => todo._id === id)[0];
     todo.completed = !todo.completed;
+    this.props.onToggleTodo(todo);
+  };
+
+  updateMessage = async id => {
+    //this.props.onUpdateTodos(this.props.userId);
     try {
+      const todo = this.state.todos.filter(todo => todo._id === id)[0];
+      todo.completed = !todo.completed;
+
       const response = await axios.patch(`/todos/${id}`, todo);
-      this.setState({todos: [ response.data.todos ]});
+
+      let updatedTodos = this.state.todos.slice();
+      let updatedTodoIndex = updatedTodos.findIndex(todo => todo._id === id);
+      updatedTodos[updatedTodoIndex] = response.data.todo;
+
+      this.setState({ todos: updatedTodos });
     } catch (e) {
-      console.log('err :', e);
+      console.log("err :", e);
     }
-  }
+  };
 
   render() {
+    let todos = <Spinner />;
 
-    let todos = this.state.todos.map((todo) => {
-      return <li key={todo._id}>{todo._id + ' - ' + todo.text}
-              <button onClick={() => { this.updateMessage(todo._id) }} >{ todo.completed ? 'Incomplete' : 'Complete' }</button>
-              <button onClick={() => { this.updateMessage(todo._id) }} >Update</button>
-              <button onClick={() => { this.deleteMessage(todo._id) }} >Delete</button>
-            </li>
-    });
+    if (!this.props.loading) {
+      todos = this.props.todos.map(todo => (
+        <li key={todo._id}>
+          {todo._id + " - " + todo.text}
+          <button
+            onClick={() => {
+              this.toggleTodoComplete(todo._id);
+            }}
+          >
+            {todo.completed ? "Incomplete" : "Complete"}
+          </button>
+          <button
+            onClick={() => {
+              this.updateMessage(todo._id);
+            }}
+          >
+            Update
+          </button>
+          <button
+            onClick={() => {
+              this.deleteMessage(todo._id);
+            }}
+          >
+            Delete
+          </button>
+        </li>
+      ));
+    }
 
     return (
       <div className={classes.Todos}>
         <h1>List of todos</h1>
-        <ul>
-          {
-            todos
-          }
-        </ul>
-        <button onClick={() => { this.addMessage() }} >Add Dummy Message</button>
+        <ul>{todos}</ul>
+        <button
+          onClick={() => {
+            this.addMessage();
+          }}
+        >
+          Add Dummy Message
+        </button>
       </div>
     );
   }
 }
 
-export default Todos;
+const mapStateToProps = state => {
+  return {
+    todos: state.todos.todos,
+    loading: state.todos.loading
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    onFetchTodos: () => dispatch(actions.fetchTodos()),
+    onDeleteTodo: _id => dispatch(actions.deleteTodo(_id)),
+    onToggleTodo: todo => dispatch(actions.toggleTodo(todo))
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withErrorHandler(Todos, axios));
