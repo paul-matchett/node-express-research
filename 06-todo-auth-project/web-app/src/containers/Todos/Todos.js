@@ -7,35 +7,9 @@ import Spinner from "../../components/UI/Spinner/Spinner";
 import classes from "./Todos.css";
 
 class Todos extends Component {
-  state = {
-    userId: localStorage.getItem("userId")
-  };
-
   componentDidMount() {
-    console.log("this.props :", this.props);
     this.props.onFetchTodos();
   }
-
-  addMessage = async () => {
-    //this.props.onAddTodo();
-
-    let rn = Math.floor(Math.random() * 6000) + 1;
-    const todo = {
-      text: `this is a dummy message from react app. rn: ${rn}`,
-      _userId: this.state.userId
-    };
-    try {
-      const response = await axios.post(`/todos/`, todo);
-      if (!response.data) {
-        throw new Error("No todo returned");
-      }
-      const updatesTodos = this.state.todos.slice();
-      updatesTodos.push(response.data);
-      this.setState({ todos: updatesTodos });
-    } catch (e) {
-      console.log("err :", e);
-    }
-  };
 
   deleteMessage = id => {
     this.props.onDeleteTodo(id);
@@ -48,21 +22,7 @@ class Todos extends Component {
   };
 
   updateMessage = async id => {
-    //this.props.onUpdateTodos(this.props.userId);
-    try {
-      const todo = this.state.todos.filter(todo => todo._id === id)[0];
-      todo.completed = !todo.completed;
-
-      const response = await axios.patch(`/todos/${id}`, todo);
-
-      let updatedTodos = this.state.todos.slice();
-      let updatedTodoIndex = updatedTodos.findIndex(todo => todo._id === id);
-      updatedTodos[updatedTodoIndex] = response.data.todo;
-
-      this.setState({ todos: updatedTodos });
-    } catch (e) {
-      console.log("err :", e);
-    }
+    this.props.history.push(`/update-todo/${id}`);
   };
 
   render() {
@@ -101,13 +61,6 @@ class Todos extends Component {
       <div className={classes.Todos}>
         <h1>List of todos</h1>
         <ul>{todos}</ul>
-        <button
-          onClick={() => {
-            this.addMessage();
-          }}
-        >
-          Add Dummy Message
-        </button>
       </div>
     );
   }

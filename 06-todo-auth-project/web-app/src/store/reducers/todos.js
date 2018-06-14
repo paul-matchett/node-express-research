@@ -39,11 +39,11 @@ const deleteTodoSuccess = (state, action) => {
 };
 
 const deleteTodoFail = (state, action) => {
-  return updateObject(state, { loading: false });
+  return updateObject(state);
 };
 
 const toggleTodoStart = (state, action) => {
-  return updateObject(state, { loading: true });
+  return updateObject(state);
 };
 
 const toggleTodoSuccess = (state, action) => {
@@ -51,13 +51,47 @@ const toggleTodoSuccess = (state, action) => {
   let updatedTodoIndex = state.findIndex(todo => todo._id === action.user._id);
   updatedTodos[updatedTodoIndex] = action.user;
   return updateObject(state, {
-    loading: false,
     todos: updatedTodos
   });
 };
 
 const toggleTodoFail = (state, action) => {
   return updateObject(state, { loading: false });
+};
+
+const addTodoStart = (state, action) => {
+  return updateObject(state);
+};
+
+const addTodoSuccess = (state, action) => {
+  const updatesTodos = state.todos.slice();
+  updatesTodos.push(action.user);
+  return updateObject(state, {
+    todos: updatesTodos
+  });
+};
+
+const addTodoFail = (state, action) => {
+  return updateObject(state);
+};
+
+const updateTodoStart = (state, action) => {
+  return updateObject(state);
+};
+
+const updateTodoSuccess = (state, action) => {
+  let updatedTodos = state.todos.slice();
+  let updatedTodoIndex = updatedTodos.findIndex(
+    todo => todo._id === action.todo.id
+  );
+  updatedTodos[updatedTodoIndex] = action.todo;
+  return updateObject(state, {
+    todos: updatedTodos
+  });
+};
+
+const updateTodoFail = (state, action) => {
+  return updateObject(state);
 };
 
 const reducer = (state = initialState, action) => {
@@ -80,6 +114,18 @@ const reducer = (state = initialState, action) => {
       return toggleTodoSuccess(state, action);
     case actionTypes.TOGGLE_TODO_FAIL:
       return toggleTodoFail(state, action);
+    case actionTypes.ADD_TODO_START:
+      return addTodoStart(state, action);
+    case actionTypes.ADD_TODO_SUCCESS:
+      return addTodoSuccess(state, action);
+    case actionTypes.ADD_TODO_FAIL:
+      return addTodoFail(state, action);
+    case actionTypes.UPDATE_TODO_START:
+      return updateTodoStart(state, action);
+    case actionTypes.UPDATE_TODO_SUCCESS:
+      return updateTodoSuccess(state, action);
+    case actionTypes.UPDATE_TODO_FAIL:
+      return updateTodoFail(state, action);
     default:
       return state;
   }

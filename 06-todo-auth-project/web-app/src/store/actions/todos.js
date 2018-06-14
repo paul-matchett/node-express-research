@@ -107,3 +107,73 @@ export const toggleTodo = todo => {
     }
   };
 };
+
+export const addTodoStart = () => {
+  return {
+    type: actionTypes.ADD_TODO_START
+  };
+};
+
+export const addTodoFail = error => {
+  return {
+    type: actionTypes.ADD_TODO_FAIL,
+    error: error
+  };
+};
+
+export const addTodoSuccess = id => {
+  return {
+    type: actionTypes.ADD_TODO_SUCCESS,
+    id: id
+  };
+};
+
+export const addTodo = todo => {
+  return async dispatch => {
+    dispatch(addTodoStart());
+    try {
+      const response = await axios.post(`/todos/`, todo);
+      if (!response.data.todo) {
+        throw new Error("No data returned");
+      }
+      dispatch(addTodoSuccess(todo));
+    } catch (e) {
+      dispatch(addTodoFail(e));
+    }
+  };
+};
+
+export const updateTodoStart = () => {
+  return {
+    type: actionTypes.UPDATE_TODO_START
+  };
+};
+
+export const updateTodoFail = error => {
+  return {
+    type: actionTypes.UPDATE_TODO_FAIL,
+    error: error
+  };
+};
+
+export const updateTodoSuccess = id => {
+  return {
+    type: actionTypes.UPDATE_TODO_SUCCESS,
+    id: id
+  };
+};
+
+export const updateTodo = todo => {
+  return async dispatch => {
+    dispatch(updateTodoStart());
+    try {
+      const response = await axios.patch(`/todos/${todo._id}`, todo);
+      if (!response.data.todo) {
+        throw new Error("No data returned");
+      }
+      dispatch(updateTodoSuccess(todo));
+    } catch (e) {
+      dispatch(updateTodoFail(e));
+    }
+  };
+};

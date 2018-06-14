@@ -12,6 +12,10 @@ const asyncAuth = asyncComponent(() => {
   return import("./containers/Auth/Auth");
 });
 
+const asyncTodo = asyncComponent(() => {
+  return import("./containers/Todo/Todo");
+});
+
 class App extends Component {
   componentDidMount() {
     this.props.onTryAutoSignup();
@@ -29,9 +33,10 @@ class App extends Component {
       routes = (
         <Switch>
           <Route path="/logout" component={Logout} />
+          <Route path="/add-todo" component={asyncTodo} />
+          <Route path="/update-todo/:id" component={asyncTodo} />
           <Route path="/auth" component={asyncAuth} />
           <Route path="/" component={Todos} />
-          {/* <Redirect to="/" /> */}
         </Switch>
       );
     }
