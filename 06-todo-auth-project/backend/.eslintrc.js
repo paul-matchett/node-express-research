@@ -1,44 +1,35 @@
 module.exports = {
-  "env": {
-    "browser": true,
-    "commonjs": true,
-    "es6": true,
-    "node": true
+  env: {
+    browser: true,
+    commonjs: true,
+    es6: true,
+    node: true
   },
-  "parserOptions": {
-    "ecmaFeatures": {
-      "experimentalObjectRestSpread": true
+  parserOptions: {
+    ecmaFeatures: {
+      ecmaVersion: 8,
+      experimentalObjectRestSpread: true
     }
   },
-  "rules": {
-    "no-unused-vars":
-      [
-        "error",
-        {
-          "vars": "all",
-          "args": "after-used",
-          "ignoreRestSiblings": false,
-          "varsIgnorePattern": "^_"
-        }
-      ],
-    "indent": [2, 2, { "SwitchCase": 1 }],
-    "linebreak-style": [
+  rules: {
+    "no-unused-vars": [
       "error",
-      "windows"
+      {
+        vars: "all",
+        args: "after-used",
+        ignoreRestSiblings: false,
+        varsIgnorePattern: "^_"
+      }
     ],
-    "quotes": [
-      "error",
-      "single"
-    ],
-    "semi": [
-      "error",
-      "always"
-    ],
+    indent: [2, 2, { SwitchCase: 1 }],
+    "linebreak-style": ["error", "windows"],
+    quotes: ["error", "single"],
+    semi: ["error", "always"],
     "keyword-spacing": 1,
     "block-spacing": 1,
     "no-console": 2,
     "space-before-blocks": [1, "always"],
     "comma-dangle": [1, "always-multiline"],
-    "space-infix-ops": ["error", { "int32Hint": false }]
+    "space-infix-ops": ["error", { int32Hint: false }]
   }
 };

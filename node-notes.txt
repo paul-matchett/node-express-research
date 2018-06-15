@@ -116,5 +116,13 @@ building notes react app - creating todos crud calls with rest api using axios 2
 
 Thursday
 
-building notes react app - adding redux store, actions and reducers to manage auth state
-building notes react app - adding redux store, actions and reducers to manage todos state
+building notes react app - adding redux store to project - 1, 
+building notes react app - creating actions and reducers to manage login auth state - 4
+building notes react app - creating actions and reducers to log out and destroying jwt - 1
+building notes react app - setting up gaurded routes and components for addTodo and UpdateTodo:id - 2
+
+Friday 
+
+building notes react app - setting up gaurded routes and components for addTodo and UpdateTodo:id - 2
+building notes react app - adding redux store, actions and reducers to manage todos state - 4
+building notes react app - adding unit testing for todo service with jest, enzyme and axios-mock-adapter - 2
