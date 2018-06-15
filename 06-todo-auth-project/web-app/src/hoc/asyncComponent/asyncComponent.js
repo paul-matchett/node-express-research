@@ -14,7 +14,7 @@ const asyncComponent = importComponent => {
         }
         this.setState({ component: cmp.default });
       } catch (error) {
-        console.log("e :", error);
+        console.log("error :", error);
       }
     }
 
